@@ -1,0 +1,8 @@
+# Apple Numbers file (too large for GitHub)
+*.numbers
+
+# Claude Code project files
+.claude/
+
+# macOS
+.DS_Store
