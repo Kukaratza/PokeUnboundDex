@@ -300,6 +300,58 @@
             color: #7f8c8d;
         }
 
+        .pokebox-container {
+            display: none;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .pokebox-container.active {
+            display: flex;
+        }
+
+        .pokebox-btn {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .pokebox-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .pokebox-btn.active {
+            transform: scale(1.1);
+        }
+
+        .pokebox-btn img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+        }
+
+        .pokebox-btn .box-label {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #2c3e50;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            pointer-events: none;
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 1.8em;
@@ -340,6 +392,13 @@
         <div class="view-toggle">
             <button class="view-btn active" data-view="grid">Grid View</button>
             <button class="view-btn" data-view="evolution">Unbound PC Dex</button>
+        </div>
+
+        <div class="pokebox-container" id="pokeboxContainer">
+            <button class="pokebox-btn" data-box="starters">
+                <img src="pokebox.png" alt="Pokebox">
+                <div class="box-label">Starters</div>
+            </button>
         </div>
 
         <div class="stats">
@@ -6133,9 +6192,15 @@
         // Evolution families data
         const EVOLUTION_FAMILIES = [["Bulbasaur","Ivysaur","Venusaur"],["Charmander","Charmeleon","Charizard"],["Squirtle","Wartortle","Blastoise"],["Caterpie","Metapod","Butterfree"],["Weedle","Kakuna","Beedrill"],["Pidgey","Pidgeotto","Pidgeot"],["Rattata","Raticate"],["Alolan Rattata","Alolan Raticate"],["Spearow","Fearow"],["Ekans","Arbok"],["Pichu","Pikachu","Raichu"],["Pichu","Pikachu","Alolan Raichu"],["Sandshrew","Sandslash"],["Alolan Sandshrew","Alolan Sandslash"],["Nidoran F","Nidorina","Nidoqueen"],["Nidoran M","Nidorino","Nidoking"],["Cleffa","Clefairy","Clefable"],["Vulpix","Ninetales"],["Alolan Vulpix","Alolan Ninetales"],["Igglybuff","Jigglypuff","Wigglytuff"],["Zubat","Golbat","Crobat"],["Oddish","Gloom","Vileplume"],["Oddish","Gloom","Bellossom"],["Paras","Parasect"],["Venonat","Venomoth"],["Diglett","Dugtrio"],["Alolan Diglett","Alolan Dugtrio"],["Meowth","Persian"],["Alolan Meowth","Alolan Persian"],["Galarian Meowth"],["Psyduck","Golduck"],["Mankey","Primeape"],["Growlithe","Arcanine"],["Hisuian Growlithe","Hisuian Arcanine"],["Poliwag","Poliwhirl","Poliwrath"],["Poliwag","Poliwhirl","Politoed"],["Abra","Kadabra","Alakazam"],["Machop","Machoke","Machamp"],["Bellsprout","Weepinbell","Victreebel"],["Tentacool","Tentacruel"],["Geodude","Graveler","Golem"],["Alolan Geodude","Alolan Graveler","Alolan Golem"],["Ponyta","Rapidash"],["Galarian Ponyta","Galarian Rapidash"],["Slowpoke","Slowbro"],["Slowpoke","Slowking"],["Galarian Slowpoke","Galarian Slowbro"],["Galarian Slowpoke","Galarian Slowking"],["Magnemite","Magneton","Magnezone"],["Farfetch D"],["Galarian Farfetch D","Sirfetch D"],["Doduo","Dodrio"],["Seel","Dewgong"],["Grimer","Muk"],["Alolan Grimer","Alolan Muk"],["Shellder","Cloyster"],["Gastly","Haunter","Gengar"],["Onix","Steelix"],["Drowzee","Hypno"],["Krabby","Kingler"],["Voltorb","Electrode"],["Hisuian Voltorb","Hisuian Electrode"],["Exeggcute","Exeggutor"],["Exeggcute","Alolan Exeggutor"],["Cubone","Marowak"],["Cubone","Alolan Marowak"],["Tyrogue","Hitmonlee"],["Tyrogue","Hitmonchan"],["Tyrogue","Hitmontop"],["Lickitung","Lickilicky"],["Koffing","Weezing"],["Koffing","Galarian Weezing"],["Rhyhorn","Rhydon","Rhyperior"],["Happiny","Chansey","Blissey"],["Tangela","Tangrowth"],["Kangaskhan"],["Horsea","Seadra","Kingdra"],["Goldeen","Seaking"],["Staryu","Starmie"],["Mr Mime"],["Galarian Mr Mime","Mr Rime"],["Mime Jr","Mr Mime"],["Mime Jr","Galarian Mr Mime"],["Scyther","Scizor"],["Scyther","Kleavor"],["Smoochum","Jynx"],["Elekid","Electabuzz","Electivire"],["Magby","Magmar","Magmortar"],["Pinsir"],["Tauros"],["Magikarp","Gyarados"],["Lapras"],["Ditto"],["Eevee","Vaporeon"],["Eevee","Jolteon"],["Eevee","Flareon"],["Eevee","Espeon"],["Eevee","Umbreon"],["Eevee","Leafeon"],["Eevee","Glaceon"],["Eevee","Sylveon"],["Porygon","Porygon2","Porygon Z"],["Omanyte","Omastar"],["Kabuto","Kabutops"],["Aerodactyl"],["Munchlax","Snorlax"],["Chikorita","Bayleef","Meganium"],["Cyndaquil","Quilava","Typhlosion"],["Cyndaquil","Quilava","Hisuian Typhlosion"],["Totodile","Croconaw","Feraligatr"],["Sentret","Furret"],["Hoothoot","Noctowl"],["Ledyba","Ledian"],["Spinarak","Ariados"],["Chinchou","Lanturn"],["Togepi","Togetic","Togekiss"],["Natu","Xatu"],["Mareep","Flaaffy","Ampharos"],["Azurill","Marill","Azumarill"],["Bonsly","Sudowoodo"],["Hoppip","Skiploom","Jumpluff"],["Aipom","Ambipom"],["Sunkern","Sunflora"],["Yanma","Yanmega"],["Wooper","Quagsire"],["Murkrow","Honchkrow"],["Misdreavus","Mismagius"],["Unown"],["Wobbuffet"],["Wynaut","Wobbuffet"],["Girafarig"],["Pineco","Forretress"],["Dunsparce"],["Gligar","Gliscor"],["Snubbull","Granbull"],["Qwilfish"],["Hisuian Qwilfish","Overqwil"],["Shuckle"],["Heracross"],["Sneasel","Weavile"],["Hisuian Sneasel","Sneasler"],["Teddiursa","Ursaring","Ursaluna"],["Slugma","Magcargo"],["Swinub","Piloswine","Mamoswine"],["Corsola"],["Galarian Corsola","Cursola"],["Remoraid","Octillery"],["Delibird"],["Mantyke","Mantine"],["Skarmory"],["Houndour","Houndoom"],["Phanpy","Donphan"],["Stantler","Wyrdeer"],["Smeargle"],["Miltank"],["Treecko","Grovyle","Sceptile"],["Torchic","Combusken","Blaziken"],["Mudkip","Marshtomp","Swampert"],["Poochyena","Mightyena"],["Zigzagoon","Linoone"],["Galarian Zigzagoon","Galarian Linoone","Obstagoon"],["Wurmple","Silcoon","Beautifly"],["Wurmple","Cascoon","Dustox"],["Lotad","Lombre","Ludicolo"],["Seedot","Nuzleaf","Shiftry"],["Taillow","Swellow"],["Wingull","Pelipper"],["Ralts","Kirlia","Gardevoir"],["Ralts","Kirlia","Gallade"],["Surskit","Masquerain"],["Shroomish","Breloom"],["Slakoth","Vigoroth","Slaking"],["Nincada","Ninjask"],["Nincada","Shedinja"],["Whismur","Loudred","Exploud"],["Makuhita","Hariyama"],["Nosepass","Probopass"],["Skitty","Delcatty"],["Sableye"],["Mawile"],["Aron","Lairon","Aggron"],["Meditite","Medicham"],["Electrike","Manectric"],["Plusle"],["Minun"],["Volbeat"],["Illumise"],["Budew","Roselia","Roserade"],["Gulpin","Swalot"],["Carvanha","Sharpedo"],["Wailmer","Wailord"],["Numel","Camerupt"],["Torkoal"],["Spoink","Grumpig"],["Spinda"],["Trapinch","Vibrava","Flygon"],["Cacnea","Cacturne"],["Swablu","Altaria"],["Zangoose"],["Seviper"],["Lunatone"],["Solrock"],["Barboach","Whiscash"],["Corphish","Crawdaunt"],["Baltoy","Claydol"],["Lileep","Cradily"],["Anorith","Armaldo"],["Feebas","Milotic"],["Castform"],["Kecleon"],["Shuppet","Banette"],["Duskull","Dusclops","Dusknoir"],["Tropius"],["Chingling","Chimecho"],["Absol"],["Snorunt","Glalie"],["Snorunt","Froslass"],["Spheal","Sealeo","Walrein"],["Clamperl","Huntail"],["Clamperl","Gorebyss"],["Relicanth"],["Luvdisc"],["Bagon","Shelgon","Salamence"],["Beldum","Metang","Metagross"],["Turtwig","Grotle","Torterra"],["Chimchar","Monferno","Infernape"],["Piplup","Prinplup","Empoleon"],["Starly","Staravia","Staraptor"],["Bidoof","Bibarel"],["Kricketot","Kricketune"],["Shinx","Luxio","Luxray"],["Cranidos","Rampardos"],["Shieldon","Bastiodon"],["Burmy","Wormadam"],["Burmy","Mothim"],["Combee","Vespiquen"],["Pachirisu"],["Buizel","Floatzel"],["Cherubi","Cherrim"],["Shellos","Gastrodon"],["Drifloon","Drifblim"],["Buneary","Lopunny"],["Glameow","Purugly"],["Stunky","Skuntank"],["Bronzor","Bronzong"],["Chatot"],["Spiritomb"],["Gible","Gabite","Garchomp"],["Riolu","Lucario"],["Hippopotas","Hippowdon"],["Skorupi","Drapion"],["Croagunk","Toxicroak"],["Carnivine"],["Finneon","Lumineon"],["Snover","Abomasnow"],["Rotom"],["Victini"],["Snivy","Servine","Serperior"],["Tepig","Pignite","Emboar"],["Oshawott","Dewott","Samurott"],["Oshawott","Dewott","Hisuian Samurott"],["Patrat","Watchog"],["Lillipup","Herdier","Stoutland"],["Purrloin","Liepard"],["Pansage","Simisage"],["Pansear","Simisear"],["Panpour","Simipour"],["Munna","Musharna"],["Pidove","Tranquill","Unfezant"],["Blitzle","Zebstrika"],["Roggenrola","Boldore","Gigalith"],["Woobat","Swoobat"],["Drilbur","Excadrill"],["Audino"],["Timburr","Gurdurr","Conkeldurr"],["Tympole","Palpitoad","Seismitoad"],["Throh"],["Sawk"],["Sewaddle","Swadloon","Leavanny"],["Venipede","Whirlipede","Scolipede"],["Cottonee","Whimsicott"],["Petilil","Lilligant"],["Petilil","Hisuian Lilligant"],["Basculin Red"],["Hisuian Basculin","Basculegion"],["Sandile","Krokorok","Krookodile"],["Darumaka","Darmanitan"],["Galarian Darumaka","Galarian Darmanitan"],["Maractus"],["Dwebble","Crustle"],["Scraggy","Scrafty"],["Sigilyph"],["Yamask","Cofagrigus"],["Galarian Yamask","Runerigus"],["Tirtouga","Carracosta"],["Archen","Archeops"],["Trubbish","Garbodor"],["Zorua","Zoroark"],["Hisuian Zorua","Hisuian Zoroark"],["Minccino","Cinccino"],["Gothita","Gothorita","Gothitelle"],["Solosis","Duosion","Reuniclus"],["Ducklett","Swanna"],["Vanillite","Vanillish","Vanilluxe"],["Deerling Spring","Sawsbuck Spring"],["Emolga"],["Karrablast","Escavalier"],["Foongus","Amoonguss"],["Frillish","Jellicent"],["Alomomola"],["Joltik","Galvantula"],["Ferroseed","Ferrothorn"],["Klink","Klang","Klinklang"],["Tynamo","Eelektrik","Eelektross"],["Elgyem","Beheeyem"],["Litwick","Lampent","Chandelure"],["Axew","Fraxure","Haxorus"],["Cubchoo","Beartic"],["Cryogonal"],["Shelmet","Accelgor"],["Stunfisk"],["Galarian Stunfisk"],["Mienfoo","Mienshao"],["Druddigon"],["Golett","Golurk"],["Pawniard","Bisharp"],["Bouffalant"],["Rufflet","Braviary"],["Rufflet","Hisuian Braviary"],["Vullaby","Mandibuzz"],["Heatmor"],["Durant"],["Deino","Zweilous","Hydreigon"],["Larvesta","Volcarona"],["Chespin","Quilladin","Chesnaught"],["Fennekin","Braixen","Delphox"],["Froakie","Frogadier","Greninja"],["Bunnelby","Diggersby"],["Fletchling","Fletchinder","Talonflame"],["Scatterbug","Spewpa","Vivillon"],["Litleo","Pyroar"],["Flabebe","Floette","Florges"],["Az Floette"],["Skiddo","Gogoat"],["Pancham","Pangoro"],["Furfrou"],["Espurr","Meowstic"],["Honedge","Doubledge","Aegislash"],["Spritzee","Aromatisse"],["Swirlix","Slurpuff"],["Inkay","Malamar"],["Binacle","Barbaracle"],["Skrelp","Dragalge"],["Clauncher","Clawitzer"],["Helioptile","Heliolisk"],["Tyrunt","Tyrantrum"],["Amaura","Aurorus"],["Hawlucha"],["Dedenne"],["Carbink"],["Goomy","Sliggoo","Goodra"],["Goomy","Hisuian Sliggoo","Hisuian Goodra"],["Klefki"],["Phantump","Trevenant"],["Pumpkaboo","Gourgeist"],["Bergmite","Avalugg"],["Bergmite","Hisuian Avalugg"],["Noibat","Noivern"],["Rowlet","Dartrix","Decidueye"],["Rowlet","Dartrix","Hisuian Decidueye"],["Litten","Torracat","Incineroar"],["Popplio","Brionne","Primarina"],["Pikipek","Trumbeak","Toucannon"],["Yungoos","Gumshoos"],["Grubbin","Charjabug","Vikavolt"],["Crabrawler","Crabominable"],["Oricorio Baile"],["Cutiefly","Ribombee"],["Rockruff","Lycanroc Midday"],["Wishiwashi"],["Mareanie","Toxapex"],["Mudbray","Mudsdale"],["Dewpider","Araquanid"],["Fomantis","Lurantis"],["Morelull","Shiinotic"],["Salandit","Salazzle"],["Stufful","Bewear"],["Bounsweet","Steenee","Tsareena"],["Comfey"],["Oranguru"],["Passimian"],["Wimpod","Golisopod"],["Sandygast","Palossand"],["Pyukumuku"],["Type Null","Silvally"],["Minior"],["Komala"],["Turtonator"],["Togedemaru"],["Mimikyu"],["Bruxish"],["Drampa"],["Dhelmise"],["Jangmo O","Hakamo O","Kommo O"],["Cosmog","Cosmoem","Solgaleo"],["Cosmog","Cosmoem","Lunala"],["Poipole","Naganadel"],["Grookey","Thwackey","Rillaboom"],["Scorbunny","Raboot","Cinderace"],["Sobble","Drizzile","Inteleon"],["Skwovet","Greedent"],["Rookidee","Corvisquire","Corviknight"],["Blipbug","Dottler","Orbeetle"],["Nickit","Thievul"],["Gossifleur","Eldengoss"],["Wooloo","Dubwool"],["Chewtle","Drednaw"],["Yamper","Boltund"],["Rolycoly","Carkol","Coalossal"],["Applin","Flapple"],["Applin","Appletun"],["Silicobra","Sandaconda"],["Cramorant"],["Arrokuda","Barraskewda"],["Toxel","Toxitricity"],["Sizzlipede","Centiskorch"],["Clobbopus","Grapploct"],["Sinistea","Polteageist"],["Hatenna","Hattrem","Hatterene"],["Impidimp","Morgrem","Grimmsnarl"],["Milcery","Alcremie"],["Falinks"],["Pincurchin"],["Snom","Frosmoth"],["Stonjourner"],["Eiscue"],["Indeedee"],["Morpeko"],["Cufant","Copperajah"],["Dracozolt"],["Arctozolt"],["Dracovish"],["Arctovish"],["Duraludon"],["Dreepy","Drakloak","Dragapult"],["Kubfu","Urshifu Single"],["Calyrex"],["Glastrier"],["Spectrier"],["Articuno"],["Galarian Articuno"],["Zapdos"],["Galarian Zapdos"],["Moltres"],["Galarian Moltres"],["Mewtwo"],["Mew"],["Raikou"],["Entei"],["Suicune"],["Lugia"],["Ho Oh"],["Celebi"],["Regirock"],["Regice"],["Registeel"],["Latias"],["Latios"],["Kyogre"],["Groudon"],["Rayquaza"],["Jirachi"],["Deoxys"],["Uxie"],["Mesprit"],["Azelf"],["Dialga"],["Palkia"],["Heatran"],["Regigigas"],["Giratina"],["Cresselia"],["Phione"],["Manaphy"],["Darkrai"],["Shaymin"],["Arceus"],["Cobalion"],["Terrakion"],["Virizion"],["Tornadus"],["Thundurus"],["Reshiram"],["Zekrom"],["Landorus"],["Kyurem"],["Keldeo"],["Meloetta"],["Genesect"],["Xerneas"],["Yveltal"],["Zygarde"],["Diancie"],["Hoopa Confined"],["Hoopa Unbound"],["Volcanion"],["Tapu Koko"],["Tapu Lele"],["Tapu Bulu"],["Tapu Fini"],["Nihilego"],["Buzzwole"],["Pheromosa"],["Xurkitree"],["Celesteela"],["Kartana"],["Guzzlord"],["Necrozma"],["Magearna"],["Marshadow"],["Stakataka"],["Blacephalon"],["Zeraora"],["Meltan"],["Melmetal"],["Zacian"],["Zamazenta"],["Eternatus"],["Zarude"],["Regieleki"],["Regidrago"],["Wyrdeer"],["Kleavor"],["Enamorus"]];
 
+        // Box definitions - indices of evolution families for each box
+        const BOX_DEFINITIONS = {
+            starters: [0, 1, 2, 110, 111, 112, 162, 163, 164, 233, 234, 235, 268, 269, 270, 271, 347, 348, 349, 383, 384, 385, 424, 425, 426]
+        };
+
         let allPokemon = [];
         let currentFilter = 'all';
         let currentView = 'grid';
+        let currentBox = null;
 
         // Load Pokemon data
         function loadPokemonData() {
@@ -6239,6 +6304,26 @@
                 document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
                 currentView = this.dataset.view;
+                currentBox = null; // Reset box selection when switching views
+                document.querySelectorAll('.pokebox-btn').forEach(b => b.classList.remove('active'));
+                updateView();
+            });
+        });
+
+        // Pokebox button event listeners
+        document.querySelectorAll('.pokebox-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Toggle box selection
+                if (currentBox === this.dataset.box) {
+                    // Deselect if clicking the same box
+                    currentBox = null;
+                    this.classList.remove('active');
+                } else {
+                    // Select new box
+                    document.querySelectorAll('.pokebox-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentBox = this.dataset.box;
+                }
                 updateView();
             });
         });
@@ -6259,6 +6344,13 @@
                 family: family,
                 originalIndex: originalIndex
             })).filter(item => {
+                // Filter by box if one is selected
+                if (currentBox && BOX_DEFINITIONS[currentBox]) {
+                    if (!BOX_DEFINITIONS[currentBox].includes(item.originalIndex)) {
+                        return false;
+                    }
+                }
+
                 return item.family.some(pokemonName => {
                     const pokemon = getPokemonByName(pokemonName);
                     if (!pokemon) return false;
@@ -6339,9 +6431,15 @@
 
         // Update view based on current mode
         function updateView() {
+            const pokeboxContainer = document.getElementById('pokeboxContainer');
+
             if (currentView === 'grid') {
+                // Hide pokebox container in grid view
+                pokeboxContainer.classList.remove('active');
                 filterPokemon();
             } else {
+                // Show pokebox container in evolution view
+                pokeboxContainer.classList.add('active');
                 renderEvolutionFamilies();
             }
         }
