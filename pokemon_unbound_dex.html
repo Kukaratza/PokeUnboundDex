@@ -6343,37 +6343,63 @@
 
             // Filter PokeGroups based on search and current filters
             // Keep track of original index for PokeNumber
-            let filteredPokeGroups = POKE_GROUPS.map((pokeGroup, originalIndex) => ({
-                pokeGroup: pokeGroup,
-                originalIndex: originalIndex
-            })).filter(item => {
-                // Filter by box if one is selected
-                if (currentBox && BOX_DEFINITIONS[currentBox]) {
-                    if (!BOX_DEFINITIONS[currentBox].includes(item.originalIndex)) {
-                        return false;
-                    }
-                }
+            let filteredPokeGroups;
 
-                return item.pokeGroup.some(pokemonName => {
-                    const pokemon = getPokemonByName(pokemonName);
-                    if (!pokemon) return false;
+            if (currentBox && BOX_DEFINITIONS[currentBox]) {
+                // If a box is selected, iterate in the box's order
+                filteredPokeGroups = BOX_DEFINITIONS[currentBox]
+                    .map(originalIndex => ({
+                        pokeGroup: POKE_GROUPS[originalIndex],
+                        originalIndex: originalIndex
+                    }))
+                    .filter(item => {
+                        return item.pokeGroup.some(pokemonName => {
+                            const pokemon = getPokemonByName(pokemonName);
+                            if (!pokemon) return false;
 
-                    const matchesSearch = pokemon.name.toLowerCase().includes(searchTerm) ||
-                                         String(pokemon.dex).includes(searchTerm);
+                            const matchesSearch = pokemon.name.toLowerCase().includes(searchTerm) ||
+                                                 String(pokemon.dex).includes(searchTerm);
 
-                    const nameLower = pokemon.name.toLowerCase();
-                    let matchesFilter = true;
-                    if (currentFilter === 'alolan') {
-                        matchesFilter = nameLower.includes('alolan');
-                    } else if (currentFilter === 'galarian') {
-                        matchesFilter = nameLower.includes('galarian');
-                    } else if (currentFilter === 'hisuian') {
-                        matchesFilter = nameLower.includes('hisuian');
-                    }
+                            const nameLower = pokemon.name.toLowerCase();
+                            let matchesFilter = true;
+                            if (currentFilter === 'alolan') {
+                                matchesFilter = nameLower.includes('alolan');
+                            } else if (currentFilter === 'galarian') {
+                                matchesFilter = nameLower.includes('galarian');
+                            } else if (currentFilter === 'hisuian') {
+                                matchesFilter = nameLower.includes('hisuian');
+                            }
 
-                    return matchesSearch && matchesFilter;
+                            return matchesSearch && matchesFilter;
+                        });
+                    });
+            } else {
+                // If no box selected, use POKE_GROUPS order
+                filteredPokeGroups = POKE_GROUPS.map((pokeGroup, originalIndex) => ({
+                    pokeGroup: pokeGroup,
+                    originalIndex: originalIndex
+                })).filter(item => {
+                    return item.pokeGroup.some(pokemonName => {
+                        const pokemon = getPokemonByName(pokemonName);
+                        if (!pokemon) return false;
+
+                        const matchesSearch = pokemon.name.toLowerCase().includes(searchTerm) ||
+                                             String(pokemon.dex).includes(searchTerm);
+
+                        const nameLower = pokemon.name.toLowerCase();
+                        let matchesFilter = true;
+                        if (currentFilter === 'alolan') {
+                            matchesFilter = nameLower.includes('alolan');
+                        } else if (currentFilter === 'galarian') {
+                            matchesFilter = nameLower.includes('galarian');
+                        } else if (currentFilter === 'hisuian') {
+                            matchesFilter = nameLower.includes('hisuian');
+                        }
+
+                        return matchesSearch && matchesFilter;
+                    });
                 });
-            });
+            }
 
             if (filteredPokeGroups.length === 0) {
                 grid.innerHTML = '<div class="no-results">No PokeGroups found matching your criteria.</div>';
