@@ -210,6 +210,8 @@
             gap: 10px;
             margin-bottom: 15px;
             justify-content: center;
+            align-items: center;
+            position: relative;
         }
 
         .view-btn {
@@ -233,12 +235,6 @@
             border-color: #27ae60;
         }
 
-        .clear-button-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 15px;
-        }
-
         .clear-btn {
             padding: 10px 30px;
             background: #e74c3c;
@@ -249,6 +245,8 @@
             transition: all 0.3s;
             font-size: 14px;
             font-weight: 600;
+            position: absolute;
+            left: 0;
         }
 
         .clear-btn:hover {
@@ -483,12 +481,9 @@
         </div>
 
         <div class="view-toggle">
+            <button class="clear-btn" id="clearBtn">Clear</button>
             <button class="view-btn active" data-view="evolution">Pokemon Unbound PC</button>
             <button class="view-btn" data-view="grid">Grid View</button>
-        </div>
-
-        <div class="clear-button-container">
-            <button class="clear-btn" id="clearBtn">Clear</button>
         </div>
 
         <div class="pokebox-container" id="pokeboxContainer">
