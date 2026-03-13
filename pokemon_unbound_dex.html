@@ -233,6 +233,29 @@
             border-color: #27ae60;
         }
 
+        .clear-button-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .clear-btn {
+            padding: 10px 30px;
+            background: #e74c3c;
+            color: white;
+            border: 2px solid #c0392b;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .clear-btn:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+
         .poke-group {
             background: rgba(255, 255, 255, 0.7);
             border-radius: 15px;
@@ -462,6 +485,10 @@
         <div class="view-toggle">
             <button class="view-btn active" data-view="evolution">Pokemon Unbound PC</button>
             <button class="view-btn" data-view="grid">Grid View</button>
+        </div>
+
+        <div class="clear-button-container">
+            <button class="clear-btn" id="clearBtn">Clear</button>
         </div>
 
         <div class="pokebox-container" id="pokeboxContainer">
@@ -6469,6 +6496,36 @@
                 }
                 updateView();
             });
+        });
+
+        // Clear button event listener
+        document.getElementById('clearBtn').addEventListener('click', function() {
+            // Clear search box
+            document.getElementById('searchBox').value = '';
+
+            // Reset filter to 'all'
+            currentFilter = 'all';
+            document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active'));
+            document.querySelector('[data-filter="all"]').classList.add('active');
+
+            // Clear box selection
+            currentBox = null;
+            document.querySelectorAll('.pokebox-btn').forEach(b => b.classList.remove('active'));
+
+            // Clear all highlights
+            document.querySelectorAll('.pokeball-badge.highlighted').forEach(badge => {
+                badge.classList.remove('highlighted');
+            });
+            document.querySelectorAll('.pokebox-btn.highlighted').forEach(box => {
+                box.classList.remove('highlighted');
+            });
+
+            // Reset highlighted badge and box trackers
+            currentHighlightedBadge = null;
+            currentHighlightedBox = null;
+
+            // Update view
+            updateView();
         });
 
         // Helper function to get Pokemon by name
