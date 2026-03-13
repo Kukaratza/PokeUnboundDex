@@ -355,6 +355,22 @@
             pointer-events: none;
         }
 
+        /* Different colored boxes */
+        .pokebox-btn.legendary .box-label {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: #1a1a1a;
+        }
+
+        .pokebox-btn.mythical .box-label {
+            background: linear-gradient(135deg, #9b59b6 0%, #6a0dad 100%);
+            color: white;
+        }
+
+        .pokebox-btn.ultrabeast .box-label {
+            background: linear-gradient(135deg, #00CED1 0%, #1E90FF 100%);
+            color: white;
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 1.8em;
@@ -401,6 +417,22 @@
             <button class="pokebox-btn" data-box="starters">
                 <img src="pokebox.png" alt="Pokebox">
                 <div class="box-label">Starters</div>
+            </button>
+            <button class="pokebox-btn legendary" data-box="legendaries1">
+                <img src="pokebox.png" alt="Pokebox">
+                <div class="box-label">Legendaries 1</div>
+            </button>
+            <button class="pokebox-btn legendary" data-box="legendaries2">
+                <img src="pokebox.png" alt="Pokebox">
+                <div class="box-label">Legendaries 2</div>
+            </button>
+            <button class="pokebox-btn mythical" data-box="mythicals">
+                <img src="pokebox.png" alt="Pokebox">
+                <div class="box-label">Mythicals</div>
+            </button>
+            <button class="pokebox-btn ultrabeast" data-box="ultrabeasts">
+                <img src="pokebox.png" alt="Pokebox">
+                <div class="box-label">Ultra Beasts</div>
             </button>
         </div>
 
@@ -6197,7 +6229,11 @@
 
         // Box definitions - indices of PokeGroups for each box
         const BOX_DEFINITIONS = {
-            starters: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+            starters: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+            legendaries1: [451,453,455,457,459,460,461,462,463,465,466,467,468,469,470,471,472,475,476,477,478,479,480,481,482,483,489,490,491,492],
+            legendaries2: [493,496,494,495,497,501,502,503,508,509,510,511,519,408,409,348],
+            mythicals: [458,464,473,474,486,485,487,488,498,499,500,504,507,520,521,524,505,506],
+            ultrabeasts: [512,513,514,515,516,517,518,522,523]
         };
 
         let allPokemon = [];
@@ -6408,9 +6444,27 @@
             }
 
             let totalPokemon = 0;
-            grid.innerHTML = filteredPokeGroups.map(item => {
+
+            // Determine starting number for box numbering
+            let boxNumberStart = 1;
+            if (currentBox === 'legendaries2') {
+                boxNumberStart = 31; // Continue from 31 for Legendaries 2
+            }
+
+            grid.innerHTML = filteredPokeGroups.map((item, sequentialIndex) => {
                 const pokeGroup = item.pokeGroup;
                 const originalIndex = item.originalIndex;
+
+                // Determine which number to display
+                let displayNumber;
+                if (currentBox && BOX_DEFINITIONS[currentBox]) {
+                    // Use sequential numbering for specific boxes
+                    displayNumber = boxNumberStart + sequentialIndex;
+                } else {
+                    // Use original PokeGroup index for Unbound PC Dex view
+                    displayNumber = originalIndex + 1;
+                }
+
                 const evolutionChain = pokeGroup.map(pokemonName => {
                     const pokemon = getPokemonByName(pokemonName);
                     if (!pokemon) return '';
@@ -6445,7 +6499,7 @@
                                     <circle cx="50" cy="50" r="15" fill="white" stroke="#333" stroke-width="2"/>
                                     <circle cx="50" cy="50" r="10" fill="#f5f5f5" stroke="#666" stroke-width="1"/>
                                 </svg>
-                                <div class="number">${originalIndex + 1}</div>
+                                <div class="number">${displayNumber}</div>
                             </div>
                         </div>
                         <div class="evolution-chain">
