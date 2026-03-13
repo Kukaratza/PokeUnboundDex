@@ -356,6 +356,11 @@
         }
 
         /* Different colored boxes */
+        .pokebox-btn.starter .box-label {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            color: white;
+        }
+
         .pokebox-btn.legendary .box-label {
             background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
             color: #1a1a1a;
@@ -414,7 +419,7 @@
         </div>
 
         <div class="pokebox-container" id="pokeboxContainer">
-            <button class="pokebox-btn" data-box="starters">
+            <button class="pokebox-btn starter" data-box="starters">
                 <img src="pokebox.png" alt="Pokebox">
                 <div class="box-label">Starters</div>
             </button>
