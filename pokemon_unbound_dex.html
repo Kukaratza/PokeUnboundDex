@@ -281,10 +281,10 @@
 
         @keyframes badgeGlow {
             from {
-                filter: drop-shadow(0 0 5px #FFD700) drop-shadow(0 0 10px #FFD700);
+                box-shadow: 0 0 12px 5px #FFD700, 0 0 24px 10px #FFA500;
             }
             to {
-                filter: drop-shadow(0 0 10px #FFD700) drop-shadow(0 0 15px #FFA500);
+                box-shadow: 0 0 18px 8px #FFD700, 0 0 36px 12px #FF8C00;
             }
         }
 
@@ -342,13 +342,12 @@
 
         .pokebox-btn {
             position: relative;
-            width: 100px;
-            height: 100px;
+            width: 90px;
+            height: 90px;
             border: none;
             background: transparent;
             cursor: pointer;
-            transition: transform 0.3s;
-            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .pokebox-btn:hover {
@@ -365,10 +364,10 @@
 
         @keyframes boxGlow {
             from {
-                filter: drop-shadow(0 0 10px #FFD700) drop-shadow(0 0 20px #FFD700);
+                box-shadow: 0 0 20px 8px #FFD700, 0 0 40px 15px #FFA500;
             }
             to {
-                filter: drop-shadow(0 0 20px #FFD700) drop-shadow(0 0 30px #FFA500);
+                box-shadow: 0 0 30px 12px #FFD700, 0 0 60px 20px #FF8C00;
             }
         }
 
