@@ -251,6 +251,12 @@
             position: relative;
             width: 50px;
             height: 50px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .pokeball-badge:hover {
+            transform: scale(1.1);
         }
 
         .pokeball-badge svg {
@@ -266,6 +272,20 @@
             font-size: 16px;
             font-weight: bold;
             color: #333;
+        }
+
+        .pokeball-badge.highlighted {
+            animation: badgeGlow 1.5s ease-in-out infinite alternate;
+            cursor: pointer;
+        }
+
+        @keyframes badgeGlow {
+            from {
+                filter: drop-shadow(0 0 5px #FFD700) drop-shadow(0 0 10px #FFD700);
+            }
+            to {
+                filter: drop-shadow(0 0 10px #FFD700) drop-shadow(0 0 15px #FFA500);
+            }
         }
 
         .evolution-chain {
@@ -337,6 +357,19 @@
 
         .pokebox-btn.active {
             transform: scale(1.1);
+        }
+
+        .pokebox-btn.highlighted {
+            animation: boxGlow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes boxGlow {
+            from {
+                filter: drop-shadow(0 0 10px #FFD700) drop-shadow(0 0 20px #FFD700);
+            }
+            to {
+                filter: drop-shadow(0 0 20px #FFD700) drop-shadow(0 0 30px #FFA500);
+            }
         }
 
         .pokebox-btn img {
@@ -6560,7 +6593,7 @@
                 return `
                     <div class="poke-group">
                         <div class="group-number">
-                            <div class="pokeball-badge">
+                            <div class="pokeball-badge" data-pokegroup-index="${originalIndex}" onclick="handlePokeNumberClick(${originalIndex}, event)">
                                 <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="50" cy="50" r="45" fill="#f44336" stroke="#333" stroke-width="2"/>
                                     <circle cx="50" cy="50" r="45" fill="white" stroke="#333" stroke-width="2" clip-path="url(#bottom-half-${originalIndex})"/>
@@ -6580,6 +6613,70 @@
                     </div>
                 `;
             }).join('');
+        }
+
+        // Track currently highlighted badge
+        let currentHighlightedBadge = null;
+        let currentHighlightedBox = null;
+
+        // Find which box a PokeGroup belongs to
+        function findBoxForPokeGroup(pokeGroupIndex) {
+            for (const [boxName, indices] of Object.entries(BOX_DEFINITIONS)) {
+                if (indices.includes(pokeGroupIndex)) {
+                    return boxName;
+                }
+            }
+            return null;
+        }
+
+        // Handle PokeNumber badge click
+        function handlePokeNumberClick(pokeGroupIndex, event) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            const clickedBadge = document.querySelector(`.pokeball-badge[data-pokegroup-index="${pokeGroupIndex}"]`);
+
+            // If clicking the same badge, toggle it off
+            if (currentHighlightedBadge === pokeGroupIndex) {
+                // Remove highlights
+                if (clickedBadge) {
+                    clickedBadge.classList.remove('highlighted');
+                }
+                if (currentHighlightedBox) {
+                    const boxButton = document.querySelector(`.pokebox-btn[data-box="${currentHighlightedBox}"]`);
+                    if (boxButton) {
+                        boxButton.classList.remove('highlighted');
+                    }
+                }
+                currentHighlightedBadge = null;
+                currentHighlightedBox = null;
+                return;
+            }
+
+            // Remove previous highlights
+            document.querySelectorAll('.pokeball-badge.highlighted').forEach(badge => {
+                badge.classList.remove('highlighted');
+            });
+            document.querySelectorAll('.pokebox-btn.highlighted').forEach(box => {
+                box.classList.remove('highlighted');
+            });
+
+            // Add highlight to clicked badge
+            if (clickedBadge) {
+                clickedBadge.classList.add('highlighted');
+            }
+
+            // Find and highlight the corresponding box
+            const boxName = findBoxForPokeGroup(pokeGroupIndex);
+            if (boxName) {
+                const boxButton = document.querySelector(`.pokebox-btn[data-box="${boxName}"]`);
+                if (boxButton) {
+                    boxButton.classList.add('highlighted');
+                }
+                currentHighlightedBox = boxName;
+            }
+
+            currentHighlightedBadge = pokeGroupIndex;
         }
 
         // Update view based on current mode
