@@ -103,6 +103,14 @@
             font-size: 14px;
         }
 
+        .evolution-title {
+            text-align: center;
+            margin: 30px 0 20px 0;
+            color: #2c3e50;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
         .pokemon-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -416,8 +424,8 @@
         </div>
 
         <div class="view-toggle">
+            <button class="view-btn" data-view="evolution">Pokemon Unbound PC</button>
             <button class="view-btn active" data-view="grid">Grid View</button>
-            <button class="view-btn" data-view="evolution">Unbound PC Dex</button>
         </div>
 
         <div class="pokebox-container" id="pokeboxContainer">
@@ -503,9 +511,7 @@
             </button>
         </div>
 
-        <div class="stats">
-            Showing <span id="showingCount">0</span> of <span id="totalCount">0</span> Pokemon
-        </div>
+        <div class="evolution-title">Pokemon Evolutions</div>
 
         <div class="pokemon-grid" id="pokemonGrid">
             <div class="loading">Loading Pokemon data...</div>
@@ -6310,7 +6316,6 @@
         // Load Pokemon data
         function loadPokemonData() {
             allPokemon = POKEMON_DATA;
-            document.getElementById('totalCount').textContent = allPokemon.length;
             renderPokemon(allPokemon);
         }
 
@@ -6328,7 +6333,6 @@
 
             if (pokemonList.length === 0) {
                 grid.innerHTML = '<div class="no-results">No Pokemon found matching your search.</div>';
-                document.getElementById('showingCount').textContent = '0';
                 return;
             }
 
@@ -6349,8 +6353,6 @@
                     </a>
                 `;
             }).join('');
-
-            document.getElementById('showingCount').textContent = pokemonList.length;
         }
 
         // Get variant tag HTML
@@ -6510,7 +6512,6 @@
 
             if (filteredPokeGroups.length === 0) {
                 grid.innerHTML = '<div class="no-results">No PokeGroups found matching your criteria.</div>';
-                document.getElementById('showingCount').textContent = '0';
                 return;
             }
 
@@ -6579,8 +6580,6 @@
                     </div>
                 `;
             }).join('');
-
-            document.getElementById('showingCount').textContent = totalPokemon;
         }
 
         // Update view based on current mode
