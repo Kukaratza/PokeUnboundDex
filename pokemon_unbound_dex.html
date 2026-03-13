@@ -6554,10 +6554,25 @@
             let totalPokemon = 0;
 
             // Determine starting number for box numbering
-            let boxNumberStart = 1;
-            if (currentBox === 'legendaries2') {
-                boxNumberStart = 31; // Continue from 31 for Legendaries 2
-            }
+            const BOX_START_NUMBERS = {
+                'mons1': 1,
+                'mons2': 31,
+                'mons3': 61,
+                'mons4': 91,
+                'mons5': 121,
+                'mons6': 151,
+                'mons7': 181,
+                'mons8': 211,
+                'mons9': 241,
+                'mons10': 271,
+                'mons11': 301,
+                'mons12': 331,
+                'mons13': 361,
+                'mons14': 391,
+                'mons15': 421,
+                'legendaries2': 31
+            };
+            let boxNumberStart = BOX_START_NUMBERS[currentBox] || 1;
 
             grid.innerHTML = filteredPokeGroups.map((item, sequentialIndex) => {
                 const pokeGroup = item.pokeGroup;
