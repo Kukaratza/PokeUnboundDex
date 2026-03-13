@@ -17,7 +17,44 @@ An interactive Pokedex for Pokemon Unbound featuring 962+ Pokemon with complete 
 
 ## Usage
 
-Click on any Pokemon card to view detailed information on [UnboundWiki](https://unboundwiki.com).
+### View Modes
+
+**Pokemon Unbound PC** (Default)
+- Displays Pokemon organized by evolution families
+- Each family has a numbered Pokeball badge (PokeNumber)
+- Shows evolution chains with arrows connecting stages
+
+**Grid View**
+- Traditional card-based layout
+- All Pokemon displayed individually
+- Sortable by Pokedex number
+
+### PokeBox System
+
+Filter Pokemon by category using the PokeBox buttons:
+
+**Starters** - All starter Pokemon and their evolutions
+**Mons 1-15** - Regular Pokemon organized into 15 boxes
+- Mons 1: PokeNumbers 1-30
+- Mons 2: PokeNumbers 31-60
+- Mons 3-15: Continue in sequential order
+
+**Legendaries 1-2** - Legendary Pokemon split across two boxes
+**Mythicals** - Mythical Pokemon collection
+**Ultra Beasts** - All Ultra Beast Pokemon
+
+### Interactive Features
+
+🔍 **Search** - Type Pokemon name or Pokedex number
+🏷️ **Filters** - Show only Alolan, Galarian, or Hisuian variants
+🎯 **PokeNumber Click** - Click a numbered badge to highlight its corresponding PokeBox
+📖 **Pokemon Details** - Click any Pokemon card to view info on [UnboundWiki](https://unboundwiki.com)
+
+### Visual Indicators
+
+- **Thicker border** = Selected PokeBox
+- **Glowing effect** = Active PokeNumber/PokeBox connection
+- **Variant tags** = Color-coded regional forms
 
 ## Evolution Families
 
