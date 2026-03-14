@@ -5,12 +5,14 @@ Articuno
 Zapdos
 Moltres
 Mewtwo
+
 Gen II
 Raikou
 Entei
 Suicune
 Lugia
 Ho-Oh
+
 Gen III
 Regirock
 Regice
@@ -20,6 +22,7 @@ Latios
 Kyogre
 Groudon
 Rayquaza
+
 Gen IV
 Uxie
 Mesprit
@@ -30,6 +33,7 @@ Heatran
 Regigigas
 Giratina
 Cresselia
+
 Gen V
 Cobalion
 Terrakion
@@ -40,10 +44,12 @@ Landorus
 Reshiram
 Zekrom
 Kyurem
+
 Gen VI
 Xerneas
 Yveltal
 Zygarde
+
 Gen VII
 Tapu Koko
 Tapu Lele
@@ -54,6 +60,19 @@ Lunala
 Necrozma
 Cosmog → evolves into Solgaleo or Lunala
 Floette → unreleased special form
+
+Gen VIII
+Kubfu
+Urshifu
+Zacian
+Zamazenta
+Eternatus
+Regieleki
+Regidrago
+Glastrier
+Spectrier
+Calyrex
+Plus several Gen VIII Mythicals like Zarude.
 
 2️⃣ Mythical Pokémon (NOT technically Legendary)
 These are event Pokémon normally distributed by Nintendo.
