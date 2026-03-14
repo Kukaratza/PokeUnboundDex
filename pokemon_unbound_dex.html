@@ -32,6 +32,26 @@
             margin-bottom: 30px;
         }
 
+        .title-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .logo {
+            height: 80px;
+            width: auto;
+        }
+
+        .pc-dex-text {
+            font-size: 1.5em;
+            font-style: italic;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
         h1 {
             color: #2c3e50;
             font-size: 2.5em;
@@ -467,7 +487,10 @@
 <body>
     <div class="container">
         <header>
-            <h1>Pokemon Unbound PC Dex</h1>
+            <div class="title-container">
+                <img src="Pokemon_Unbound_Logo.webp" alt="Pokemon Unbound" class="logo">
+                <span class="pc-dex-text">PC Dex</span>
+            </div>
             <div class="subtitle">Complete Pokedex with 962+ Pokemon</div>
         </header>
 
