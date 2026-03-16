@@ -448,6 +448,7 @@
             color: white;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             pointer-events: none;
+            white-space: nowrap;
         }
 
         /* Different colored boxes */
@@ -488,6 +489,20 @@
             .search-box {
                 width: 100%;
             }
+
+            .view-toggle {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .clear-btn {
+                position: static;
+                width: 100%;
+            }
+
+            .view-btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -524,63 +539,63 @@
             </button>
             <button class="pokebox-btn" data-box="mons1">
                 <img src="pokebox.png" alt="Pokebox">
-                <div class="box-label">Mons 1</div>
+                <div class="box-label">1-30</div>
             </button>
             <button class="pokebox-btn" data-box="mons2">
                 <img src="pokebox.png" alt="Pokebox">
-                <div class="box-label">Mons 2</div>
+                <div class="box-label">31-60</div>
             </button>
             <button class="pokebox-btn" data-box="mons3">
                 <img src="pokebox.png" alt="Pokebox">
-                <div class="box-label">Mons 3</div>
+                <div class="box-label">61-90</div>
             </button>
             <button class="pokebox-btn" data-box="mons4">
                 <img src="pokebox.png" alt="Pokebox">
-                <div class="box-label">Mons 4</div>
+                <div class="box-label">91-120</div>
             </button>
             <button class="pokebox-btn" data-box="mons5">
                 <img src="pokebox.png" alt="Pokebox">
-                <div class="box-label">Mons 5</div>
+                <div class="box-label">121-150</div>
             </button>
             <button class="pokebox-btn" data-box="mons6">
                 <img src="pokebox.png" alt="Pokebox">
-                <div class="box-label">Mons 6</div>
+                <div class="box-label">151-180</div>
             </button>
             <button class="pokebox-btn" data-box="mons7">
                 <img src="pokebox.png" alt="Pokebox">
-                <div class="box-label">Mons 7</div>
+                <div class="box-label">181-210</div>
             </button>
             <button class="pokebox-btn" data-box="mons8">
                 <img src="pokebox.png" alt="Pokebox">
-                <div class="box-label">Mons 8</div>
+                <div class="box-label">211-240</div>
             </button>
             <button class="pokebox-btn" data-box="mons9">
                 <img src="pokebox.png" alt="Pokebox">
-                <div class="box-label">Mons 9</div>
+                <div class="box-label">241-270</div>
             </button>
             <button class="pokebox-btn" data-box="mons10">
                 <img src="pokebox.png" alt="Pokebox">
-                <div class="box-label">Mons 10</div>
+                <div class="box-label">271-300</div>
             </button>
             <button class="pokebox-btn" data-box="mons11">
                 <img src="pokebox.png" alt="Pokebox">
-                <div class="box-label">Mons 11</div>
+                <div class="box-label">301-330</div>
             </button>
             <button class="pokebox-btn" data-box="mons12">
                 <img src="pokebox.png" alt="Pokebox">
-                <div class="box-label">Mons 12</div>
+                <div class="box-label">331-360</div>
             </button>
             <button class="pokebox-btn" data-box="mons13">
                 <img src="pokebox.png" alt="Pokebox">
-                <div class="box-label">Mons 13</div>
+                <div class="box-label">361-390</div>
             </button>
             <button class="pokebox-btn" data-box="mons14">
                 <img src="pokebox.png" alt="Pokebox">
-                <div class="box-label">Mons 14</div>
+                <div class="box-label">391-420</div>
             </button>
             <button class="pokebox-btn" data-box="mons15">
                 <img src="pokebox.png" alt="Pokebox">
-                <div class="box-label">Mons 15</div>
+                <div class="box-label">421-450</div>
             </button>
             <button class="pokebox-btn legendary" data-box="legendaries1">
                 <img src="pokebox.png" alt="Pokebox">

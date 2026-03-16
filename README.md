@@ -34,10 +34,9 @@ An interactive Pokedex for Pokemon Unbound featuring 962+ Pokemon with complete 
 Filter Pokemon by category using the PokeBox buttons:
 
 **Starters** - All starter Pokemon and their evolutions
-**Mons 1-15** - Regular Pokemon organized into 15 boxes
-- Mons 1: PokeNumbers 1-30
-- Mons 2: PokeNumbers 31-60
-- Mons 3-15: Continue in sequential order
+**1-30 through 421-450** - Regular Pokemon organized into 15 boxes by PokeNumber ranges
+- Each box contains 30 Pokemon families (except the last box with remaining families)
+- Box labels show PokeNumber ranges (e.g., "1-30", "31-60", etc.)
 
 **Legendaries 1-2** - Legendary Pokemon split across two boxes
 **Mythicals** - Mythical Pokemon collection
