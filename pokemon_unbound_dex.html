@@ -305,6 +305,17 @@
         .group-number {
             text-align: center;
             margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .box-slot-info {
+            font-size: 11px;
+            color: #666;
+            opacity: 0.8;
+            white-space: nowrap;
         }
 
         .pokeball-badge {
@@ -499,6 +510,15 @@
                 font-size: 0.9em;
                 padding: 12px 15px;
                 margin: 15px 10px;
+            }
+
+            .group-number {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .box-slot-info {
+                font-size: 10px;
             }
 
             .controls {
@@ -6747,6 +6767,9 @@
                                 </svg>
                                 <div class="number">${displayNumber}</div>
                             </div>
+                            <div class="box-slot-info">
+                                Box: ${getBoxDisplayName(findBoxForPokeGroup(originalIndex))} | Slot: ${getSlotInBox(originalIndex)}
+                            </div>
                         </div>
                         <div class="evolution-chain">
                             ${evolutionChain}
@@ -6768,6 +6791,43 @@
                 }
             }
             return null;
+        }
+
+        // Get display name for box
+        function getBoxDisplayName(boxName) {
+            const boxLabels = {
+                'starters': 'Starters',
+                'legendaries1': 'Legendaries 1',
+                'legendaries2': 'Legendaries 2',
+                'mythicals': 'Mythicals',
+                'ultrabeasts': 'Ultra Beasts',
+                'mons1': '1-30',
+                'mons2': '31-60',
+                'mons3': '61-90',
+                'mons4': '91-120',
+                'mons5': '121-150',
+                'mons6': '151-180',
+                'mons7': '181-210',
+                'mons8': '211-240',
+                'mons9': '241-270',
+                'mons10': '271-300',
+                'mons11': '301-330',
+                'mons12': '331-360',
+                'mons13': '361-390',
+                'mons14': '391-420',
+                'mons15': '421-450'
+            };
+            return boxLabels[boxName] || boxName;
+        }
+
+        // Get slot position within box (1-30)
+        function getSlotInBox(pokeGroupIndex) {
+            const boxName = findBoxForPokeGroup(pokeGroupIndex);
+            if (!boxName) return null;
+
+            const boxIndices = BOX_DEFINITIONS[boxName];
+            const position = boxIndices.indexOf(pokeGroupIndex);
+            return position >= 0 ? position + 1 : null;
         }
 
         // Handle PokeNumber badge click
